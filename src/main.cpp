@@ -85,27 +85,34 @@ uint8_t *captureImage(size_t *length)
 }
 
 void setup() {
-  ESP_LOGD(_TAG, "setup() entered");
+    ESP_LOGD(_TAG, "setup() entered");
 
-  ESP_LOGD(_TAG, "Calling Arducam_Mega.begin()");
-  myCAM.begin();
-  ESP_LOGD(_TAG, "Arducam_Mega.begin() called");
+    ESP_LOGD(_TAG, "Calling Arducam_Mega.begin()");
+    myCAM.begin();
+    ESP_LOGD(_TAG, "Arducam_Mega.begin() called");
 
-  ESP_LOGD(_TAG, "Calling setupCameraSettings()");
-  setupCameraSettings();
-  ESP_LOGD(_TAG, "setupCameraSettings() called");
+    ESP_LOGD(_TAG, "Calling setupCameraSettings()");
+    setupCameraSettings();
+    ESP_LOGD(_TAG, "setupCameraSettings() called");
 
-  ESP_LOGD(_TAG, "setup() finished");
+    ESP_LOGD(_TAG, "setup() finished");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  ESP_LOGD(_TAG, "Capturing image...");
-  size_t length = 0;
-  uint8_t* imageData = captureImage(&length);
-  ESP_LOGD(_TAG, "Image captured, length %u", length);
-  delete[] imageData;
 
-  delay(2000);
+    ESP_LOGD(_TAG, "Free internal heap: %d  Minimum free heap size: %d",
+        esp_get_free_internal_heap_size(), esp_get_minimum_free_heap_size());
+
+    ESP_LOGD(_TAG, "Capturing image...");
+    size_t length = 0;
+    uint8_t* imageData = captureImage(&length);
+    ESP_LOGD(_TAG, "Image captured, length %u", length);
+    delete[] imageData;
+
+    ESP_LOGD(_TAG, "Free internal heap: %d  Minimum free heap size: %d",
+        esp_get_free_internal_heap_size(), esp_get_minimum_free_heap_size());
+
+    delay(2000);
 }
 
