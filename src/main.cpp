@@ -123,6 +123,7 @@ void loop() {
 
     setLED(ledState);
     ledState = !ledState;
+    
     String message;
     message = "Free internal heap: " +
         String(esp_get_free_internal_heap_size()) +
