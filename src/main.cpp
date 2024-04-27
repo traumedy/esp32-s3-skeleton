@@ -16,7 +16,7 @@ bool ledState = false;
 
 void setLED(bool on)
 {
-    digitalWrite (ledPin, on);
+    digitalWrite (ledPin, on ? HIGH : LOW);
 }
 
 void setupCameraSettings()
