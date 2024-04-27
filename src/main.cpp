@@ -7,9 +7,17 @@ static const char* _TAG = "main";
 CAM_IMAGE_MODE imageMode = CAM_IMAGE_MODE_QVGA;
 // const int CS = D7; // ESP32-E
 const int CS = T9; // ESP32-S3
+const int ledPin = LED_BUILTIN;
 Arducam_Mega myCAM(CS);
+bool ledState = false;
+
 
 // put function declarations here:
+
+void setLED(bool on)
+{
+    digitalWrite (ledPin, on);
+}
 
 void setupCameraSettings()
 {
@@ -86,11 +94,16 @@ uint8_t *captureImage(size_t *length)
 
 void setup() {
 
+    pinMode (ledPin, OUTPUT);
+
     Serial.begin(115200);
-    // Connect to WiFi
+
+#if 1
+    // Wait for serial port to connect
     while (!Serial)
     {
-    } // Wait for serial port to connect
+    } 
+#endif
 
     Serial.println("setup() entered");
 
@@ -108,6 +121,8 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
+    setLED(ledState);
+    ledState = !ledState;
     String message;
     message = "Free internal heap: " +
         String(esp_get_free_internal_heap_size()) +
